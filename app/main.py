@@ -1,18 +1,20 @@
+import logging
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from app.dependencies import engine
-from app.models import Base
+from app.config import settings
+from app.dependencies import create_tables
 from app.routers import users
-
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+    if settings.REPOSITORY_TYPE == "db":
+        await create_tables()
+    yield
 
-app = FastAPI(title="User API")
+app = FastAPI(title="User API", lifespan=lifespan)
 
 app.include_router(users.router)
+
 

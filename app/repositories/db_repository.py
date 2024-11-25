@@ -17,13 +17,13 @@ class DBUserRepository(UserRepository):
         self.session.add(user_db)
         await self.session.commit()
         await self.session.refresh(user_db)
-        return User.from_orm(user_db)
+        return User.model_validate(user_db)
 
     async def get_user(self, user_id: int) -> Optional[User]:
         result = await self.session.execute(select(UserDBModel).where(UserDBModel.id == user_id))
         user_db = result.scalars().first()
         if user_db:
-            return User.from_orm(user_db)
+            return User.model_validate(user_db)
         return None
 
     async def update_user(self, user_id: int, user_update: UserUpdate) -> Optional[User]:
@@ -33,7 +33,7 @@ class DBUserRepository(UserRepository):
             user_db.full_name = user_update.full_name
             await self.session.commit()
             await self.session.refresh(user_db)
-            return User.from_orm(user_db)
+            return User.model_validate(user_db)
         return None
 
     async def delete_user(self, user_id: int) -> bool:
