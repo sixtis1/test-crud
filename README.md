@@ -7,6 +7,7 @@ A RESTful API service for managing users with the ability to select a repository
 - [Requirements](#requirements)
 - [Installation and Setup](#installation-and-setup)
   - [Clone the Repository](#clone-the-repository)
+  - [Install Dependencies](#install-dependencies)
   - [Start the Database](#start-the-database)
   - [Configure the Application](#configure-the-application)
   - [Run the Application](#run-the-application)
@@ -31,7 +32,7 @@ git clone https://github.com/sixtis1/test-crud.git
 cd test-crud
 ```
 
-### Clone the Repository
+### Install Dependencies
 Install the dependencies from the requirements.txt file:
 ```bash
 pip install -r requirements.txt
