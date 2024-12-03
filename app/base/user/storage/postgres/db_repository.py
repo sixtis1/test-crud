@@ -3,9 +3,9 @@ from typing import Optional
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
-from app.base.user.model.user_model import UserDBModel
+from app.base.user.storage.postgres.user_db_model import UserDBModel
 from app.base.user.storage.base import UserRepository
-from app.base.user.schema.schemas import UserCreate, UserUpdate, User
+from app.base.user.model.user_model import UserCreate, UserUpdate, User
 
 
 class DBUserRepository(UserRepository):

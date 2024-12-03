@@ -1,11 +1,19 @@
-from sqlalchemy import String
-from sqlalchemy.orm import Mapped, mapped_column, declarative_base
-
-Base = declarative_base()
+from pydantic import BaseModel, ConfigDict
 
 
-class UserDBModel(Base):
-    __tablename__ = "users"
+class UserBase(BaseModel):
+    full_name: str
 
-    id: Mapped[int] = mapped_column(primary_key=True)
-    full_name: Mapped[str] = mapped_column(String(30))
+
+class UserCreate(UserBase):
+    pass
+
+
+class UserUpdate(UserBase):
+    pass
+
+
+class User(UserBase):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int

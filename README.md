@@ -81,7 +81,7 @@ pytest
 ├── app
 │   ├── __init__.py
 │   ├── main.py                # Entry point of the FastAPI application
-│   ├── user_model.py              # SQLAlchemy models
+│   ├── user_db_model.py              # SQLAlchemy models
 │   ├── schema.py             # Pydantic schema for validation
 │   ├── routers
 │   │   ├── __init__.py

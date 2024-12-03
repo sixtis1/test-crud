@@ -1,24 +1,19 @@
-from abc import ABC, abstractmethod
 from typing import Optional
 
-from app.base.user.schema.schemas import UserCreate, UserUpdate, User
+from app.base.user.model.user_model import UserCreate, UserUpdate, User
 
 
-class UserRepository(ABC):
-    @abstractmethod
+class UserRepository:
     async def create_user(self, user_create: UserCreate) -> User:
-        pass
+        raise NotImplementedError
 
-    @abstractmethod
     async def get_user(self, user_id: int) -> Optional[User]:
-        pass
+        raise NotImplementedError
 
-    @abstractmethod
     async def update_user(
         self, user_id: int, user_update: UserUpdate
     ) -> Optional[User]:
-        pass
+        raise NotImplementedError
 
-    @abstractmethod
     async def delete_user(self, user_id: int) -> bool:
-        pass
+        raise NotImplementedError
