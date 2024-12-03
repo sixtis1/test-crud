@@ -3,7 +3,7 @@ from httpx import AsyncClient, ASGITransport
 
 from app.main import app
 from app.dependencies import get_user_repository
-from app.repositories.memory_repository import MemoryUserRepository
+from app.base.user.storage.memory.memory_repository import MemoryUserRepository
 
 
 @pytest.fixture

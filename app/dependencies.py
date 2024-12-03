@@ -3,10 +3,10 @@ from typing import AsyncGenerator
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 
 from app.config import settings
-from app.models import Base
-from app.repositories.base import UserRepository
-from app.repositories.memory_repository import MemoryUserRepository
-from app.repositories.db_repository import DBUserRepository
+from app.base.user.model.user_model import Base
+from app.base.user.storage.base import UserRepository
+from app.base.user.storage.memory.memory_repository import MemoryUserRepository
+from app.base.user.storage.postgres.db_repository import DBUserRepository
 
 engine = create_async_engine(
     settings.DATABASE_URL,
