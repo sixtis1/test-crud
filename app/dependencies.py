@@ -23,8 +23,9 @@ async def get_engine() -> AsyncEngine:
     return engine
 
 
-async def get_async_session() -> AsyncSession:
-    async_session = async_sessionmaker(get_engine(), expire_on_commit=False)
+async def get_async_session() -> async_sessionmaker:
+    engine = await get_engine()
+    async_session = async_sessionmaker(engine, expire_on_commit=False)
     return async_session
 
 
@@ -34,14 +35,20 @@ async def get_db_session() -> AsyncGenerator[AsyncSession, None]:
 
 
 async def create_tables() -> None:
-    async with get_engine().begin() as conn:
+    engine = await get_engine()
+    async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
 
 async def get_user_repository() -> AsyncGenerator[UserRepository, None]:
-    if settings.REPOSITORY_TYPE == "memory":
-        memory_repository = MemoryUserRepository()
-        yield memory_repository
-    else:
-        async with get_async_session() as session:
-            yield DBUserRepository(session)
+    match settings.REPOSITORY_TYPE:
+        case "memory":
+            memory_repository = MemoryUserRepository()
+            yield memory_repository
+        case "db":
+            async with get_async_session() as session:
+                yield DBUserRepository(session)
+        case _:
+            raise RuntimeError(
+                f"Unsupported repository type: {settings.REPOSITORY_TYPE}"
+            )
