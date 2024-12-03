@@ -1,5 +1,5 @@
 import pytest
-from httpx import AsyncClient
+from httpx import AsyncClient, ASGITransport
 
 from app.main import app
 from app.dependencies import get_user_repository
@@ -8,7 +8,7 @@ from app.repositories.memory_repository import MemoryUserRepository
 
 @pytest.fixture
 def anyio_backend():
-    return 'asyncio'
+    return "asyncio"
 
 
 @pytest.fixture
@@ -20,6 +20,7 @@ def memory_repository():
 def override_get_user_repository(memory_repository):
     async def _override():
         yield memory_repository
+
     return _override
 
 
@@ -32,7 +33,9 @@ def setup_dependency_overrides(override_get_user_repository):
 
 @pytest.fixture
 async def client() -> AsyncClient:
-    async with AsyncClient(app=app, base_url="http://testserver") as ac:
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://testserver"
+    ) as ac:
         yield ac
 
 

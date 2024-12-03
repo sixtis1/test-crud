@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import List, Optional
+from typing import Optional
 
 from app.schemas import UserCreate, UserUpdate, User
 
@@ -14,7 +14,9 @@ class UserRepository(ABC):
         pass
 
     @abstractmethod
-    async def update_user(self, user_id: int, user_update: UserUpdate) -> Optional[User]:
+    async def update_user(
+        self, user_id: int, user_update: UserUpdate
+    ) -> Optional[User]:
         pass
 
     @abstractmethod
