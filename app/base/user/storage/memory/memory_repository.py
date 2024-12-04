@@ -1,6 +1,6 @@
 from typing import Dict, Optional
 
-from app.base.user.storage.base import UserRepository
+from app.base.user.storage.base.base import UserRepository
 from app.base.user.model.user_model import UserCreate, UserUpdate, User
 
 
