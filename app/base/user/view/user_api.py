@@ -1,11 +1,9 @@
-from app.base.user.container import container
+# user_api.py
 from app.base.user.model.user_model import UserUpdate, UserCreate
 from app.base.user.storage.base.base import UserRepository
-from app.base.user.storage.base.repository import Repository
-
 
 class UserAPI:
-    def __init__(self, repository: Repository):
+    def __init__(self, repository: UserRepository):
         self.repository = repository
 
     async def create_user(self, user_create: UserCreate):
@@ -28,8 +26,3 @@ class UserAPI:
         if success:
             return {"message": "User deleted"}
         return {"error": "User not found"}
-
-
-repo_provider = container.resolve(UserRepository)
-repository_instance = Repository(repo_provider)
-user_api = UserAPI(repository_instance)
