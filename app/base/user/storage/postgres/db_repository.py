@@ -28,7 +28,9 @@ class DBUserRepository(UserRepository):
             return User.model_validate(user_db)
         return None
 
-    async def update_user(self, user_id: int, user_update: UserUpdate) -> Optional[User]:
+    async def update_user(
+        self, user_id: int, user_update: UserUpdate
+    ) -> Optional[User]:
         result = await self.session.execute(
             select(UserDBModel).where(UserDBModel.id == user_id)
         )

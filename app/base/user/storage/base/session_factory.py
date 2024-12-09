@@ -9,7 +9,9 @@ class SessionFactory:
             future=database_settings.DATABASE_FUTURE,
             echo=database_settings.DATABASE_ECHO,
         )
-        self.async_sessionmaker = async_sessionmaker(self.engine, expire_on_commit=False)
+        self.async_sessionmaker = async_sessionmaker(
+            self.engine, expire_on_commit=False
+        )
 
     def get_session(self):
         return self.async_sessionmaker()

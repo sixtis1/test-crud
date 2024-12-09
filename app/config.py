@@ -22,5 +22,6 @@ class DataBaseSettings(Settings):
     DATABASE_FUTURE: bool = True
     DATABASE_ECHO: bool = True
 
+
 app_settings = AppSettings()
 database_settings = DataBaseSettings()
