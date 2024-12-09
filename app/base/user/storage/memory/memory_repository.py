@@ -1,7 +1,7 @@
 from typing import Dict, Optional
 
-from app.repositories.base import UserRepository
-from app.schemas import UserCreate, UserUpdate, User
+from app.base.user.storage.base.base import UserRepository
+from app.base.user.model.user_model import UserCreate, UserUpdate, User
 
 
 class MemoryUserRepository(UserRepository):
@@ -18,7 +18,9 @@ class MemoryUserRepository(UserRepository):
     async def get_user(self, user_id: int) -> Optional[User]:
         return self.users.get(user_id)
 
-    async def update_user(self, user_id: int, user_update: UserUpdate) -> Optional[User]:
+    async def update_user(
+        self, user_id: int, user_update: UserUpdate
+    ) -> Optional[User]:
         user = self.users.get(user_id)
         if user:
             updated_user = User(id=user_id, full_name=user_update.full_name)

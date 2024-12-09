@@ -1,19 +1,12 @@
-from contextlib import asynccontextmanager
-
 from fastapi import FastAPI
+from app.base.user.user_initializer import UserInitializer
 
-from app.config import settings
-from app.dependencies import create_tables
-from app.routers import users
+app = FastAPI(title="User API")
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    if settings.REPOSITORY_TYPE == "db":
-        await create_tables()
-    yield
+initializers = [
+    UserInitializer(),
+]
 
-app = FastAPI(title="User API", lifespan=lifespan)
-
-app.include_router(users.router)
-
-
+# Register routes from initializers
+for initializer in initializers:
+    initializer.register_routes(app)
