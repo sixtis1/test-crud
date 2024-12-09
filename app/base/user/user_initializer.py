@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.base.user.container import container
+from app.container import container
 from app.base.user.storage.base.base import UserRepository
 from app.base.user.view.user_api import UserAPI
 

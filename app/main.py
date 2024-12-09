@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.base.user.storage.user_initializer import UserInitializer
+from app.base.user.user_initializer import UserInitializer
 
 app = FastAPI(title="User API")
 
