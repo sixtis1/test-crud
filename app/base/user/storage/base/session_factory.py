@@ -1,6 +1,7 @@
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 from app.config import database_settings
 
+
 class SessionFactory:
     def __init__(self):
         self.engine = create_async_engine(

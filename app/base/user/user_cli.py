@@ -22,7 +22,6 @@ async def create_user_command(full_name: str):
     user = await user_repository.create_user(UserCreate(full_name=full_name))
     typer.echo(f"User created: ID={user.id}, FullName={user.full_name}")
 
-    # Dispose the engine after operation to clean up properly
     session_factory: SessionFactory = container.resolve(SessionFactory)
     await session_factory.engine.dispose()
 
@@ -43,7 +42,6 @@ async def get_user_command(user_id: int):
     else:
         typer.echo("User not found")
 
-    # Clean up
     session_factory: SessionFactory = container.resolve(SessionFactory)
     await session_factory.engine.dispose()
 
@@ -64,7 +62,6 @@ async def update_user_command(user_id: int, full_name: str):
     else:
         typer.echo("User not found")
 
-    # Clean up
     session_factory: SessionFactory = container.resolve(SessionFactory)
     await session_factory.engine.dispose()
 
