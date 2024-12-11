@@ -1,14 +1,14 @@
 from fastapi import FastAPI
 
 from app.container import container
-from app.base.user.storage.base.base import UserRepository
 from app.base.user.view.user_api import UserAPI
+from app.base.user.services import UserService
 
 
 class UserInitializer:
     def __init__(self):
-        self.user_repository = container.resolve(UserRepository)
-        self.user_api = UserAPI(self.user_repository)
+        self.user_service: UserService = container.resolve(UserService)
+        self.user_api = UserAPI(self.user_service)
 
     def register_routes(self, app: FastAPI):
         app.post("/users", tags=["Post Methods"])(self.user_api.create_user)
