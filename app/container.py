@@ -15,9 +15,9 @@ from app.base.user.storage.postgres.db_repository import DBUserRepository
 from app.config import app_settings
 from app.base.user.storage.base.session_factory import SessionFactory
 
-from app.base.user.event.publisher import EventPublisher
-from app.base.user.event.subscribers import log_user_created
-from app.base.user.event.events import UserCreatedEvent
+from app.events.publisher import EventPublisher
+from app.events.subscribers import log_user_created
+from app.events.events import UserCreatedEvent
 
 from app.base.user.services import UserService
 

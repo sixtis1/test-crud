@@ -1,4 +1,4 @@
-from app.base.user.event.events import UserCreatedEvent
+from app.events.events import UserCreatedEvent
 
 
 async def log_user_created(event: UserCreatedEvent):

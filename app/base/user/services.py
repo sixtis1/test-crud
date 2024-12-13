@@ -1,7 +1,7 @@
 from app.base.user.model.user_model import UserCreate, UserUpdate
 from app.base.user.storage.base.base import UserRepository
-from app.base.user.event.publisher import EventPublisher
-from app.base.user.event.events import UserCreatedEvent
+from app.events.publisher import EventPublisher
+from app.events.events import UserCreatedEvent
 
 
 class UserService:
