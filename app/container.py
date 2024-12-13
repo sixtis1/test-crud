@@ -1,3 +1,5 @@
+# File: /app/container.py
+
 import punq
 
 from app.base.place_of_work.storage.base.base import PlaceOfWorkRepository
@@ -16,8 +18,9 @@ from app.config import app_settings
 from app.base.user.storage.base.session_factory import SessionFactory
 
 from app.events.publisher import EventPublisher
-from app.events.subscribers import log_user_created
-from app.events.events import UserCreatedEvent
+
+from app.base.user.events.events import UserCreatedEvent
+from app.base.user.events.subscribers import log_user_created
 
 from app.base.user.services import UserService
 
