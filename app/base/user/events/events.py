@@ -1,7 +1,6 @@
-from dataclasses import dataclass
+from pydantic import BaseModel
 
 
-@dataclass
-class UserCreatedEvent:
+class UserCreatedEvent(BaseModel):
     user_id: int
     full_name: str
