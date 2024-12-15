@@ -1,5 +1,5 @@
 import typer
-from app.base.user.cli.user_initializer import UserCLIInitializer
+from app.base.user.cli.user_cli_initializer import UserCLIInitializer
 
 
 app = typer.Typer()
