@@ -1,3 +1,5 @@
+# File: /app/container.py
+
 import punq
 
 from app.base.place_of_work.storage.base.base import PlaceOfWorkRepository
@@ -15,9 +17,19 @@ from app.base.user.storage.postgres.db_repository import DBUserRepository
 from app.config import app_settings
 from app.base.user.storage.base.session_factory import SessionFactory
 
+from app.events.publisher import EventPublisher
+
+from app.base.user.events.events import UserCreatedEvent
+from app.base.user.events.subscribers import log_user_created
+
+from app.base.user.services import UserService
+
 container = punq.Container()
 
 repository_type = app_settings.REPOSITORY_TYPE
+
+event_publisher = EventPublisher()
+container.register(EventPublisher, instance=event_publisher)
 
 if repository_type == "postgres":
     session_factory = SessionFactory()
@@ -34,3 +46,12 @@ if repository_type == "postgres":
 else:
     container.register(UserRepository, MemoryUserRepository)
     container.register(PlaceOfWorkRepository, MemoryPlaceOfWorkRepository)
+
+container.register(
+    UserService,
+    factory=lambda: UserService(
+        container.resolve(UserRepository), container.resolve(EventPublisher)
+    ),
+)
+
+container.resolve(EventPublisher).subscribe(UserCreatedEvent, log_user_created)
